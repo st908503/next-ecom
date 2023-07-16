@@ -12,7 +12,7 @@ const Tshirts = ({ products }) => {
           <div className="flex flex-wrap -m-4 justify-center">
 
             {Object.keys(products).map((item) => {
-              return <div key={item._id} className="lg:w-1/5 md:w-1/2 p-4 w-full cursor-pointer shadow-lg m-5">
+              return <div key={item.id} className="lg:w-1/5 md:w-1/2 p-4 w-full cursor-pointer shadow-lg m-5">
                 <Link href={`/product/${products[item].slug}`} legacyBehavior>
                   <a className="block relative rounded overflow-hidden">
                     <img
