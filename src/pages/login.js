@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Link from 'next/link'
 import { useState } from 'react'
 import { useRouter } from 'next/router';
@@ -10,6 +10,11 @@ const Login = () => {
   const [email, setEmail] = useState()
   const [password, setPassword] = useState()
 
+  useEffect(() => {
+    if (localStorage.getItem('token')) {
+      router.push('/')
+    }
+  }, [])
 
   const handleChange = (e) => {
     if (e.target.name == 'email') {
@@ -34,7 +39,7 @@ const Login = () => {
     setEmail("")
     setPassword("")
     if (response.success) {
-      localStorage.setItem('token',response.token)
+      localStorage.setItem('token', response.token)
       toast.success('Your are successfully logged in!', {
         position: "top-left",
         autoClose: 5000,
@@ -52,7 +57,7 @@ const Login = () => {
       toast.error(response.error, {
         position: "top-left",
         autoClose: 5000,
-        hideProgressionBar: false, 
+        hideProgressionBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,

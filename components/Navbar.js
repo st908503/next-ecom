@@ -39,11 +39,11 @@ const Navbar = ({logout, user, cart, addToCart, removeFromCart, clearCart, subTo
 
             <div className="cart items-center absolute right-0 top-2 md:top-4 mx-5 flex">
                 <a onMouseOver={() => setDropdown(true)} onMouseLeave={() => setDropdown(false)}>
-                    {dropdown && <div onMouseOver={() => setDropdown(true)} onMouseLeave={() => setDropdown(false)} className="absolute right-8 bg-teal-400 top-7 py-4 rounded-md px-5 font-bold w-32">
+                    {dropdown && <div onMouseOver={() => setDropdown(true)} onMouseLeave={() => setDropdown(false)} className="absolute right-8 bg-white shadow-lg top-7 py-4 rounded-md px-5 font-bold w-32">
                         <ul>
-                            <Link href={'/myaccount'}> <li className='py-1 text-sm text-teal-800 hover:text-white'>My Account</li></Link>
-                            <Link href={'/orders'}> <li className='py-1 text-sm text-teal-800 hover:text-white'>Orders</li></Link>
-                            <li onClick={logout} className='cursor-pointer py-1 text-sm text-teal-800 hover:text-white'>Logout</li>
+                            <Link href={'/myaccount'}> <li className='py-1 text-sm hover:text-teal-800'>My Account</li></Link>
+                            <Link href={'/orders'}> <li className='py-1 text-sm hover:text-teal-800'>Orders</li></Link>
+                            <li onClick={logout} className='cursor-pointer py-1 text-sm hover:text-teal-800'>Logout</li>
                         </ul>
                     </div>}
                     {user.value && <MdAccountCircle className='text-2xl mx-2 md:text-3xl cursor-pointer' />}
