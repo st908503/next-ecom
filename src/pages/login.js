@@ -34,6 +34,7 @@ const Login = () => {
     setEmail("")
     setPassword("")
     if (response.success) {
+      localStorage.setItem('token',response.token)
       toast.success('Your are successfully logged in!', {
         position: "top-left",
         autoClose: 5000,
@@ -51,7 +52,7 @@ const Login = () => {
       toast.error(response.error, {
         position: "top-left",
         autoClose: 5000,
-        hideProgressionBar: false,
+        hideProgressionBar: false, 
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,

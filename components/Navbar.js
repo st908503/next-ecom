@@ -1,10 +1,12 @@
 import React, { useRef } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
 import { AiOutlineShoppingCart, AiFillCloseCircle, AiFillMinusCircle, AiFillPlusCircle } from 'react-icons/ai'
 import { BsFillBagCheckFill } from 'react-icons/bs'
 import { MdAccountCircle } from 'react-icons/md'
 
-const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
+const Navbar = ({logout, user, cart, addToCart, removeFromCart, clearCart, subTotal }) => {
+    const [dropdown, setDropdown] = useState()
     // console.log(cart, addToCart, removeFromCart, clearCart, subTotal)
     const toggleCart = () => {
         if (ref.current.classList.contains('translate-x-full')) {
@@ -21,14 +23,9 @@ const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
 
     return (
         <div className='flex flex-col md:flex-row justify-between md:justify-start items-center mb-1 py-2 shadow-md sticky top-0 bg-white z-10'>
-            <div className='mx-5 '>
+            <div className='mx-5 mr:auto md:mx-5'>
                 <Link href={'/'} legacyBehavior>
-                    <a className="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-10 h-10 text-white p-2 bg-[#60c1ad] rounded-full" viewBox="0 0 24 24">
-                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-                        </svg>
-                        <span className="ml-3 text-xl">OneShop</span>
-                    </a>
+                    <span className="ml-3 font-bold text-xl cursor-pointer">OneShop</span>
                 </Link>
             </div>
             <div className="nav">
@@ -40,10 +37,23 @@ const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
                 </ul>
             </div>
 
-            <div className="cart absolute right-0 top-2 md:top-4 mx-5 flex">
-                <Link href={'/login'}> <MdAccountCircle className='text-2xl mx-2 md:text-3xl cursor-pointer' /></Link>
+            <div className="cart items-center absolute right-0 top-2 md:top-4 mx-5 flex">
+                <a onMouseOver={() => setDropdown(true)} onMouseLeave={() => setDropdown(false)}>
+                    {dropdown && <div onMouseOver={() => setDropdown(true)} onMouseLeave={() => setDropdown(false)} className="absolute right-8 bg-teal-400 top-7 py-4 rounded-md px-5 font-bold w-32">
+                        <ul>
+                            <Link href={'/myaccount'}> <li className='py-1 text-sm text-teal-800 hover:text-white'>My Account</li></Link>
+                            <Link href={'/orders'}> <li className='py-1 text-sm text-teal-800 hover:text-white'>Orders</li></Link>
+                            <li onClick={logout} className='cursor-pointer py-1 text-sm text-teal-800 hover:text-white'>Logout</li>
+                        </ul>
+                    </div>}
+                    {user.value && <MdAccountCircle className='text-2xl mx-2 md:text-3xl cursor-pointer' />}
+                </a>
+                {!user.value && <Link href={'/login'}>
+                    <button className='bg-teal-500 px-2 py-1 rounded-md text-sm text-white mx-2'>Login</button>
+                </Link>}
                 <AiOutlineShoppingCart onClick={toggleCart} className='text-2xl md:text-3xl cursor-pointer' />
             </div>
+
 
 
             <div ref={ref} className={`sideCart overflow-y-scroll absolute top-0 right-0 w-72 h-[100vh] bg-teal-400 px-8 py-10 transform transition-transform ${Object.keys(cart).length !== 0 ? 'translate-x-0' : 'translate-x-full'}`}>
